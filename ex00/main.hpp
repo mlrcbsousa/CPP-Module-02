@@ -6,14 +6,12 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:58:00 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/30 23:07:03 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/31 20:12:08 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __MAIN_H__
 #define __MAIN_H__
-
-# include <iostream>
 
 # include "Fixed.hpp"
 
