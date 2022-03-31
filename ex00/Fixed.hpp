@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/31 20:11:55 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/31 20:34:28 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define __FIXED_H__
 
 # include <iostream>
+
+# define LOG(x) std::cout << x << std::endl
+
 
 // ************************************************************************** //
 //                               Fixed Class                                 //
@@ -28,7 +31,13 @@ public:
 	~Fixed( void );
 	Fixed & operator = ( Fixed const & rhs );
 
+	int 				getRawBits( void ) const;
+	void 				setRawBits( int const raw );
+
 private:
+
+	static const int	_bits;
+	int					_value;
 
 };
 
