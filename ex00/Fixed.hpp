@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/01 18:23:07 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/01 19:13:02 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ public:
 
 private:
 
-	static const int	_bits = 8;
-	int					_value;
+	static const int	_fractionBits = 8;
+	int					_raw;
 
 };
 

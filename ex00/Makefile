@@ -6,7 +6,7 @@
 #    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/21 21:26:04 by msousa            #+#    #+#              #
-#    Updated: 2022/04/01 18:16:01 by msousa           ###   ########.fr        #
+#    Updated: 2022/04/01 19:10:07 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC			= clang++
 RM			= rm -f
 OBJ			= ${SRC:%.cpp=obj/%.o}
 SRC			= main.cpp Fixed.cpp
-INC			= main.hpp Fixed.hpp
+INC			= Fixed.hpp
 
 NAME		= a.out
 
