@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/31 20:34:28 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/01 18:07:57 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ public:
 
 private:
 
-	static const int	_bits;
+	static const int	_bits = 8;
 	int					_value;
 
 };
