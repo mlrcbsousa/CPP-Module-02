@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/01 18:07:57 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/01 18:23:07 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,5 @@ private:
 	int					_value;
 
 };
-
-std::ostream &	operator << ( std::ostream & o, Fixed const & i);
 
 #endif /* __FIXED_H__ */
