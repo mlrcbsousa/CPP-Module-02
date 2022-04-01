@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:08:01 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/01 19:34:57 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/01 21:12:37 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,23 @@ Fixed::Fixed( void ) : _raw(0)
 Fixed::Fixed( const int value )
 {
 	LOG("Int constructor called");
-	(void)value;
+	// LOG(INT_MAX);
+	// LOG(INT_MIN);
+	// LOG((int)0b10000000000000000000000000000000);
+	if (value > 8388607 || value < -8388608)
+		ERROR("value out of bounds");
 	// conversion of int into raw
+	setRawBits(value << _fractionBits);
+	// LOG("_raw");
+	// LOG(_raw);
+	// if (value < 0){
+	// 	_raw = ~_raw + 1;
+	// 	LOG("_raw");
+	// 	LOG((~_raw));
+	// }
+	// 0b10000000000000000000000000000000;
+	// INT_MAX;
+	// 0xFF000000;
 }
 
 Fixed::Fixed( const float value )
@@ -29,6 +44,7 @@ Fixed::Fixed( const float value )
 	LOG("Float constructor called");
 	(void)value;
 	// conversion of float into raw
+	// 1.0f / (1 << 8); // constant
 }
 
 Fixed::Fixed( Fixed const & src )
@@ -47,7 +63,7 @@ Fixed &	Fixed::operator = ( Fixed const & rhs )
 	LOG("Copy assignment operator called");
 
 	if (this != &rhs)
-		_raw = rhs.getRawBits();
+		setRawBits(rhs.getRawBits());
 
 	return *this;
 }
@@ -64,16 +80,23 @@ void	Fixed::setRawBits( int const raw )
 
 float	Fixed::toFloat( void ) const
 {
-	return 42.42f;
+	// if (_raw)
+	// LOG("Copy assignment operator called");
+	// LOG((_raw & INT_MIN));
+	int		int_part = getRawBits() >> _fractionBits;
+	float	float_part = 0.4;
+
+
+	return (float_part + int_part);
 }
 
 int	Fixed::toInt( void ) const
 {
-	return 42;
+	return roundf(toFloat());
 }
 
 std::ostream &	operator << ( std::ostream & o, Fixed const & i)
 {
-	o << i.getRawBits();
+	o << i.toFloat();
 	return o;
 }

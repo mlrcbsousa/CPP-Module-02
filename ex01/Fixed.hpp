@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/01 19:29:40 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/01 20:03:25 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define __FIXED_H__
 
 # include <iostream>
+# include <cmath>
 
 # define LOG(x) std::cout << x << std::endl
+# define ERROR(x) std::cerr << x << std::endl
 
 
 // ************************************************************************** //
