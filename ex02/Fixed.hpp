@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/02 20:27:56 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:49:50 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ private:
 	int					_raw;
 
 };
-
-// Fixed &	operator ++ ( Fixed & i);
 
 std::ostream &	operator << ( std::ostream & o, Fixed const & i);
 
