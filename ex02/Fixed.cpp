@@ -6,11 +6,31 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:08:01 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/02 20:19:02 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:33:17 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+
+Fixed &	Fixed::min(Fixed & a, Fixed & b)
+{
+	return a > b ? b : a;
+}
+
+Fixed &	Fixed::min(Fixed const & a, Fixed const & b)
+{
+	return Fixed::min((Fixed &)a, (Fixed &)b);
+}
+
+Fixed &	Fixed::max(Fixed & a, Fixed & b)
+{
+	return a < b ? b : a;
+}
+
+Fixed &	Fixed::max(Fixed const & a, Fixed const & b)
+{
+	return Fixed::max((Fixed &)a, (Fixed &)b);
+}
 
 Fixed::Fixed( void ) : _raw(0)
 {

@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/02 20:12:33 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:27:56 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 class Fixed {
 
 public:
+
+	static Fixed &	min(Fixed & a, Fixed & b);
+	static Fixed &	min(Fixed const & a, Fixed const & b);
+	static Fixed &	max(Fixed & a, Fixed & b);
+	static Fixed &	max(Fixed const & a, Fixed const & b);
 
 	Fixed( void );
 	Fixed( const int value );
