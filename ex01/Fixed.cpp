@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:08:01 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/01 21:12:37 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 17:40:54 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,40 @@ Fixed::Fixed( void ) : _raw(0)
 Fixed::Fixed( const int value )
 {
 	LOG("Int constructor called");
-	// LOG(INT_MAX);
-	// LOG(INT_MIN);
-	// LOG((int)0b10000000000000000000000000000000);
+
+	// int bounds when 8 bits are used for fraction part (2^23 - 1)
 	if (value > 8388607 || value < -8388608)
 		ERROR("value out of bounds");
-	// conversion of int into raw
+
 	setRawBits(value << _fractionBits);
-	// LOG("_raw");
-	// LOG(_raw);
-	// if (value < 0){
-	// 	_raw = ~_raw + 1;
-	// 	LOG("_raw");
-	// 	LOG((~_raw));
-	// }
-	// 0b10000000000000000000000000000000;
-	// INT_MAX;
-	// 0xFF000000;
 }
 
 Fixed::Fixed( const float value )
 {
 	LOG("Float constructor called");
-	(void)value;
-	// conversion of float into raw
-	// 1.0f / (1 << 8); // constant
+
+	if (value > 8388607 || value < -8388608)
+		ERROR("value out of bounds");
+
+	int		raw = (int)value << _fractionBits;
+	float	float_part = value - (int)value;
+
+	if (float_part > 0) {
+		for (uint i = 1; i <= _fractionBits; i++) {
+
+			// if remaining float part is bigger then fraction
+			if (float_part - (1.0f / (1 << i)) > 0) {
+
+				// decrease remaining float part
+				float_part -= 1.0f / (1 << i);
+
+				// insert bit at that position
+				raw |= (1 << (_fractionBits - i));
+			}
+		}
+	}
+	setRawBits(raw);
+	// 1.0f / (1 << 8); // constant EPSILON
 }
 
 Fixed::Fixed( Fixed const & src )
@@ -80,19 +89,28 @@ void	Fixed::setRawBits( int const raw )
 
 float	Fixed::toFloat( void ) const
 {
-	// if (_raw)
-	// LOG("Copy assignment operator called");
-	// LOG((_raw & INT_MIN));
 	int		int_part = getRawBits() >> _fractionBits;
-	float	float_part = 0.4;
+	float	float_part = 0.0;
 
+	// if there are any bits in the fraction bits
+	if (getRawBits() & 0b11111111) {
+		for (uint i = 1; i <= _fractionBits; i++) {
+
+			// if there is a bit at that position
+			if (getRawBits() & (1 << (_fractionBits - i))) {
+
+				// add the fraction to the float part
+				float_part += 1.0f / (1 << i);
+			}
+		}
+	}
 
 	return (float_part + int_part);
 }
 
 int	Fixed::toInt( void ) const
 {
-	return roundf(toFloat());
+	return (getRawBits() >> _fractionBits);
 }
 
 std::ostream &	operator << ( std::ostream & o, Fixed const & i)
