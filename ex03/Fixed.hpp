@@ -6,12 +6,16 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/31 20:16:09 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:53:41 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __FIXED_H__
-#define __FIXED_H__
+# define __FIXED_H__
+
+# include <iostream>
+# include <cmath>
+
 
 // ************************************************************************** //
 //                               Fixed Class                                 //
@@ -21,8 +25,50 @@ class Fixed {
 
 public:
 
+	static Fixed &	min(Fixed & a, Fixed & b);
+	static Fixed &	min(Fixed const & a, Fixed const & b);
+	static Fixed &	max(Fixed & a, Fixed & b);
+	static Fixed &	max(Fixed const & a, Fixed const & b);
+
+	Fixed( void );
+	Fixed( const int value );
+	Fixed( const float value );
+	Fixed( Fixed const & src );
+	~Fixed( void );
+	Fixed & operator = ( Fixed const & rhs );
+
+	int		getRawBits( void ) const;
+	void 	setRawBits( int const raw );
+	float 	toFloat( void ) const;
+	int 	toInt( void ) const;
+
+	/* comparison operators */
+	bool	operator == ( const Fixed & rhs ) const;
+	bool	operator != ( const Fixed & rhs ) const;
+	bool	operator > ( const Fixed & rhs ) const;
+	bool	operator < ( const Fixed & rhs ) const;
+	bool	operator >= ( const Fixed & rhs ) const;
+	bool	operator <= ( const Fixed & rhs ) const;
+
+	/* arithmetic operators */
+	Fixed 	operator + (const Fixed & rhs) const;
+	Fixed 	operator - (const Fixed & rhs) const;
+	Fixed 	operator * (const Fixed & rhs) const;
+	Fixed 	operator / (const Fixed & rhs) const;
+
+	/* increment & decrement operators */
+	Fixed &	operator ++ ( void );
+	Fixed	operator ++ ( int );
+	Fixed &	operator -- ( void );
+	Fixed	operator -- ( int );
+
 private:
 
+	static const int	_fractionBits = 8;
+	int					_raw;
+
 };
+
+std::ostream &	operator << ( std::ostream & o, Fixed const & i);
 
 #endif /* __FIXED_H__ */
