@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:08:01 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/02 19:44:20 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:19:02 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,32 @@ Fixed	Fixed::operator / (const Fixed & rhs) const
 	// need to multiply before dividing to not lose information
 	i.setRawBits(getRawBits() << _fractionBits);
 	i.setRawBits(i.getRawBits() / rhs.getRawBits());
+	return i;
+}
+
+Fixed &	Fixed::operator ++ ( void )
+{
+	setRawBits(getRawBits() + 1);
+	return *this;
+}
+
+Fixed	Fixed::operator ++ ( int )
+{
+	Fixed i = *this;
+	++*this;
+	return i;
+}
+
+Fixed &	Fixed::operator -- ( void )
+{
+	setRawBits(getRawBits() - 1);
+	return *this;
+}
+
+Fixed	Fixed::operator -- ( int )
+{
+	Fixed i = *this;
+	--*this;
 	return i;
 }
 

@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/02 19:20:16 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 20:12:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,24 @@ public:
 	int 	toInt( void ) const;
 
 	/* comparison operators */
-	bool	operator==( const Fixed & rhs ) const;
-	bool	operator!=( const Fixed & rhs ) const;
-	bool	operator>( const Fixed & rhs ) const;
-	bool	operator<( const Fixed & rhs ) const;
-	bool	operator>=( const Fixed & rhs ) const;
-	bool	operator<=( const Fixed & rhs ) const;
+	bool	operator == ( const Fixed & rhs ) const;
+	bool	operator != ( const Fixed & rhs ) const;
+	bool	operator > ( const Fixed & rhs ) const;
+	bool	operator < ( const Fixed & rhs ) const;
+	bool	operator >= ( const Fixed & rhs ) const;
+	bool	operator <= ( const Fixed & rhs ) const;
 
 	/* arithmetic operators */
-	Fixed 	operator+(const Fixed & rhs) const;
-	Fixed 	operator-(const Fixed & rhs) const;
-	Fixed 	operator*(const Fixed & rhs) const;
-	Fixed 	operator/(const Fixed & rhs) const;
+	Fixed 	operator + (const Fixed & rhs) const;
+	Fixed 	operator - (const Fixed & rhs) const;
+	Fixed 	operator * (const Fixed & rhs) const;
+	Fixed 	operator / (const Fixed & rhs) const;
+
+	/* increment & decrement operators */
+	Fixed &	operator ++ ( void );
+	Fixed	operator ++ ( int );
+	Fixed &	operator -- ( void );
+	Fixed	operator -- ( int );
 
 private:
 
@@ -62,6 +68,8 @@ private:
 	int					_raw;
 
 };
+
+// Fixed &	operator ++ ( Fixed & i);
 
 std::ostream &	operator << ( std::ostream & o, Fixed const & i);
 
