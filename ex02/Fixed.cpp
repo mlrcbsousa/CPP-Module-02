@@ -6,14 +6,30 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:08:01 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/01 19:15:58 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 19:44:20 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed( void ) : _raw(0) {
+Fixed::Fixed( void ) : _raw(0)
+{
 	LOG("Default constructor called");
+}
+
+Fixed::Fixed( const int value )
+{
+	LOG("Int constructor called");
+
+	setRawBits(value << _fractionBits);
+}
+
+Fixed::Fixed( const float value )
+{
+	LOG("Float constructor called");
+
+	// cant bit shift directly because float
+	setRawBits(roundf(value * (1 << _fractionBits)));
 }
 
 Fixed::Fixed( Fixed const & src )
@@ -32,18 +48,99 @@ Fixed &	Fixed::operator = ( Fixed const & rhs )
 	LOG("Copy assignment operator called");
 
 	if (this != &rhs)
-		_raw = rhs.getRawBits();
+		setRawBits(rhs.getRawBits());
 
 	return *this;
 }
 
 int	Fixed::getRawBits( void ) const
 {
-	LOG("getRawBits member function called");
 	return _raw;
 }
 
 void	Fixed::setRawBits( int const raw )
 {
 	_raw = raw;
+}
+
+float	Fixed::toFloat( void ) const
+{
+	return float(getRawBits()) / (1 << _fractionBits);
+}
+
+int	Fixed::toInt( void ) const
+{
+	return getRawBits() >> _fractionBits;
+}
+
+/* comparison operators */
+
+bool	Fixed::operator == ( const Fixed & rhs ) const
+{
+	return getRawBits() == rhs.getRawBits();
+}
+
+bool	Fixed::operator != ( const Fixed & rhs ) const
+{
+	return getRawBits() != rhs.getRawBits();
+}
+
+bool	Fixed::operator > ( const Fixed & rhs ) const
+{
+	return getRawBits() > rhs.getRawBits();
+}
+
+bool	Fixed::operator < ( const Fixed & rhs ) const
+{
+	return getRawBits() < rhs.getRawBits();
+}
+
+bool	Fixed::operator >= ( const Fixed & rhs ) const
+{
+	return getRawBits() >= rhs.getRawBits();
+}
+
+bool	Fixed::operator <= ( const Fixed & rhs ) const
+{
+	return getRawBits() <= rhs.getRawBits();
+}
+
+/* arithmetic operators */
+
+Fixed	Fixed::operator + (const Fixed & rhs) const
+{
+	Fixed i;
+	i.setRawBits(getRawBits() + rhs.getRawBits());
+	return i;
+}
+
+Fixed	Fixed::operator - (const Fixed & rhs) const
+{
+	Fixed i;
+	i.setRawBits(getRawBits() - rhs.getRawBits());
+	return i;
+}
+
+Fixed	Fixed::operator * (const Fixed & rhs) const
+{
+	Fixed i;
+	i.setRawBits(getRawBits() * rhs.getRawBits());
+	// cut back one of these operations since it was done twice
+	i.setRawBits(i.getRawBits() >> _fractionBits);
+	return i;
+}
+
+Fixed	Fixed::operator / (const Fixed & rhs) const
+{
+	Fixed i;
+	// need to multiply before dividing to not lose information
+	i.setRawBits(getRawBits() << _fractionBits);
+	i.setRawBits(i.getRawBits() / rhs.getRawBits());
+	return i;
+}
+
+std::ostream &	operator << ( std::ostream & o, Fixed const & i)
+{
+	o << i.toFloat();
+	return o;
 }
