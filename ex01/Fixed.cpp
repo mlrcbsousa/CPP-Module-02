@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:08:01 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/02 17:40:54 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/02 18:51:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ Fixed::Fixed( const int value )
 {
 	LOG("Int constructor called");
 
-	// int bounds when 8 bits are used for fraction part (2^23 - 1)
-	if (value > 8388607 || value < -8388608)
-		ERROR("value out of bounds");
-
 	setRawBits(value << _fractionBits);
 }
 
@@ -32,28 +28,8 @@ Fixed::Fixed( const float value )
 {
 	LOG("Float constructor called");
 
-	if (value > 8388607 || value < -8388608)
-		ERROR("value out of bounds");
-
-	int		raw = (int)value << _fractionBits;
-	float	float_part = value - (int)value;
-
-	if (float_part > 0) {
-		for (uint i = 1; i <= _fractionBits; i++) {
-
-			// if remaining float part is bigger then fraction
-			if (float_part - (1.0f / (1 << i)) > 0) {
-
-				// decrease remaining float part
-				float_part -= 1.0f / (1 << i);
-
-				// insert bit at that position
-				raw |= (1 << (_fractionBits - i));
-			}
-		}
-	}
-	setRawBits(raw);
-	// 1.0f / (1 << 8); // constant EPSILON
+	// cant bit shift directly because float
+	setRawBits(roundf(value * (1 << _fractionBits)));
 }
 
 Fixed::Fixed( Fixed const & src )
@@ -89,32 +65,23 @@ void	Fixed::setRawBits( int const raw )
 
 float	Fixed::toFloat( void ) const
 {
-	int		int_part = getRawBits() >> _fractionBits;
-	float	float_part = 0.0;
-
-	// if there are any bits in the fraction bits
-	if (getRawBits() & 0b11111111) {
-		for (uint i = 1; i <= _fractionBits; i++) {
-
-			// if there is a bit at that position
-			if (getRawBits() & (1 << (_fractionBits - i))) {
-
-				// add the fraction to the float part
-				float_part += 1.0f / (1 << i);
-			}
-		}
-	}
-
-	return (float_part + int_part);
+	return float(getRawBits()) / (1 << _fractionBits);
 }
 
 int	Fixed::toInt( void ) const
 {
-	return (getRawBits() >> _fractionBits);
+	return getRawBits() >> _fractionBits;
 }
 
 std::ostream &	operator << ( std::ostream & o, Fixed const & i)
 {
-	o << i.toFloat();
+	// if fractional part
+	if (i.getRawBits() & 0xFF)
+		o << i.toFloat();
+	else
+		o << i.toInt();
+
+	// not really needed because ostream already rounds to int if no
+	// float part, so just `o << i.toFloat();` is enough
 	return o;
 }
