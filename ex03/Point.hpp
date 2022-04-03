@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/02 21:11:35 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/03 12:55:22 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,18 @@ public:
 	~Point( void );
 	Point & operator = ( Point const & rhs );
 
-	Fixed &		x( void ) const;
-   	Fixed &		y( void ) const;
-	void		set_x( Fixed const & x );
-   	void		set_y( Fixed const & y );
+	Fixed const &	x( void ) const;
+   	Fixed const &	y( void ) const;
+	void			setX( Fixed const & x );
+   	void			setY( Fixed const & y );
 
 private:
 
-	Fixed const & _x, _y;
+	Fixed const 	_x, _y;
 
 };
 
+std::ostream &	operator << ( std::ostream & o, Point const & p);
 bool	bsp( Point const a, Point const b, Point const c, Point const point);
 
 #endif /* __POINT_H__ */
