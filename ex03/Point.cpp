@@ -6,26 +6,11 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:08:01 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/03 21:24:48 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/03 23:24:50 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Point.hpp"
-
-
-/* Class methods */
-
-// Point	Point::crossProduct(Point const & a, Point const & b)
-// {
-// 	return Point();
-// 	// (p.x() - a.x()) * (b.y() - a.y()) - (b.x() - a.x()) * (p.y() - a.y());
-// }
-
-// Fixed	Point::dotProduct(Point const & a, Point const & b)
-// {
-
-// }
-
 
 /* Constructors */
 Point::Point( void ) : _x(Fixed()), _y(Fixed()) { /* no-op */ }
@@ -51,6 +36,7 @@ float	Point::y( void ) const { return _y.toFloat(); }
 Fixed const	Point::getX( void ) const { return _x; }
 Fixed const	Point::getY( void ) const { return _y; }
 
+/* Instance methods */
 Point 	Point::operator - (Point const & rhs) const
 {
 	// Use private Fixed type args constructor
@@ -59,7 +45,7 @@ Point 	Point::operator - (Point const & rhs) const
 
 Fixed	Point::cross( Point const & p )
 {
-	// (𝑥1,𝑦1,0)×(𝑥2,𝑦2,0)=(0,0,𝑥1𝑦2−𝑥2𝑦1)
+	// (𝑥1, 𝑦1, 0) × (𝑥2, 𝑦2, 0) = (0, 0, 𝑥1𝑦2 − 𝑥2𝑦1)
 	// third element of cross product if z1 and z2 = 0
 	return (getX() * p.getY() - p.getX() * getY());
 }
