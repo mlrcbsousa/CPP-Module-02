@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 23:09:49 by msousa            #+#    #+#             */
-/*   Updated: 2022/04/03 21:28:28 by msousa           ###   ########.fr       */
+/*   Updated: 2022/04/04 22:05:11 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@
 class Point {
 
 public:
-
-	// static Point	crossProduct(Point const & a, Point const & b);
-	// static Fixed	dotProduct(Point const & a, Point const & b);
 
 	Point( void );
 	Point( float const x, float const y );
